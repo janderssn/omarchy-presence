@@ -1,0 +1,38 @@
+[Unit]
+Description=Presence sensing (who is at the laptop)
+Documentation=https://github.com/janderssn/omarchy-presence
+
+[Service]
+Type=dbus
+BusName=org.omarchy.Presence1
+ExecStart=/usr/lib/omarchy-presence/omarchy-presenced
+Restart=on-failure
+RestartSec=5
+
+# It needs the sensor's sysfs switches and character device, the camera node
+# for its privacy control, and the system bus. Nothing else.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+RestrictAddressFamilies=AF_UNIX
+DevicePolicy=closed
+DeviceAllow=char-iio r
+DeviceAllow=char-video4linux rw
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

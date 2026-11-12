@@ -1,0 +1,4 @@
+build/
+pkg/
+*.pkg.tar.*
+src/omarchy-presence-*/
